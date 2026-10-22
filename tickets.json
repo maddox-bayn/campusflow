@@ -1,0 +1,12 @@
+[
+    {
+        "id": "T001",
+        "title": "mobile phone",
+        "category": "Hardware",
+        "urgency": "high",
+        "affected_users": 9,
+        "priority": "high",
+        "status": "open",
+        "assigned_to": null
+    }
+]
