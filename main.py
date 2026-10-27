@@ -24,10 +24,11 @@ def handle_create(tickets):
     print(f"Created {ticket['id']} with {ticket['priority']} priority.")
 
 def handle_list(tickets):
-    format_ticket_list(tickets)
+    print(format_ticket_list(tickets))
     if tickets:
         chosen = input("\nTicket ID to view in detail (ENter to skip): ").strip()
-        
+        if chosen:
+            print(format_ticket_detail(get_ticket(tickets, chosen)))     
     
 HANDLERS = {
     "1": handle_create,
