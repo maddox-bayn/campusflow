@@ -10,7 +10,6 @@ CATEGORIES = ("Network", "Hardware", "Software", "Other")
 URGENCIES = ("low", "medium", "high")
 
 
-
 class ValidationError(Exception):
     """Raised when user input is rejected."""
 class TicketNotFoundError(ValidationError):
