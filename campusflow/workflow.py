@@ -17,15 +17,29 @@ ALLOWED_TRANSITIONS = {
 
 class WorkflowError(ValidationError):
     """Raised when an assignment or status change is not allowed."""
-staff_member = ["Alice", "Naza", "Divne", "sam", "celebrate"]
+staff_member = ["Alice", "Naza", "Divne", "Sam", "Celebrate"]
+
 def assign_ticket(tickets, ticket_id, staff_name):
-    ticket = get_ticket(tickets, ticket_id)
-    if staff_name not in staff_member:
-        raise WorkflowError("Staff not a valide member")
+    # 1. Basic validation first (fail fast)
     name = (staff_name or "").strip()
     if not name:
-        raise WorkflowError("staff name can not be empty")
+        raise WorkflowError("Staff name cannot be empty")
+        
+    # 2. Case-insensitive staff validation
+    # Create a lowercase map to find the correct capitalization
+    staff_map = {staff.lower(): staff for staff in staff_member}
+    
+    if name.lower() not in staff_map:
+        raise WorkflowError("Staff is not a valid member")
+        
+    # Standardize the name to the original capitalization (e.g., "alice" -> "Alice")
+    matched_staff_name = staff_map[name.lower()]
+
+    # 3. Retrieve and validate ticket state
+    ticket = get_ticket(tickets, ticket_id)
     if ticket["status"] == "resolved":
         raise WorkflowError(f"{ticket['id']} is resolved. Reopen it before changing it.")
-    ticket["assigned_to"] = name
+        
+    # 4. Perform the assignment
+    ticket["assigned_to"] = matched_staff_name
     return ticket

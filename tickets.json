@@ -7,6 +7,6 @@
         "affected_users": 9,
         "priority": "high",
         "status": "open",
-        "assigned_to": null
+        "assigned_to": "alice"
     }
 ]

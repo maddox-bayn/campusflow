@@ -44,6 +44,11 @@ def handle_assign(tickets):
         if not ticket_id:
             print("[Error] Ticket ID cannot be empty.")
             continue
+        try:
+            get_ticket(tickets, ticket_id)
+        except (ValidationError) as err:
+            print(f"[Error] {err}")
+            continue
 
         # 2. Get and check Staff Name
         staff_name = input("Enter the staff name to assign ticket: ").strip()
@@ -65,6 +70,7 @@ def handle_assign(tickets):
             
         except (ValidationError, StorageError) as err:
             print(f"[Error] {err}")
+            
 
 
 HANDLERS = {
